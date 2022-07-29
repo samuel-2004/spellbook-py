@@ -108,7 +108,7 @@ If you have any other websites you would like to see added to this list, please 
             if "```" in msg.content:
                 rawdata = msg.content.split("```")[1]
             elif "http" in message:
-                url = message.split(' ')[1] #should ignore the !cc prefix
+                url = msg.content.split(' ')[1] #should ignore the !cc prefix
                 cardslst = decipherurl(url)
             else:
                 return await msg.channel.send('No decklist was attached!')
