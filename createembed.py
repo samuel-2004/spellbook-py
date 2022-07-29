@@ -126,6 +126,8 @@ def getcolid(idnum, combos):
             break
     if len(col) == 0:
         raise Exception("No combo found with that id")
+    col = ":mana" + col.replace(",","::mana") + ":"
+    col = convertemojis(col)
     return col
 
 def getprereqs(idnum, combos):
