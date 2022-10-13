@@ -9,7 +9,7 @@ from discord.ext import tasks
 from assist import convertstrtoint
 
 client = discord.Client()
-TOKEN = "OTgyOTAyODE2MjU3NTA3MzI4.Gsn5eW.d2QG6vCUP9tn_GKYTZIW4gV8Fe7gvxp6xLCzOQ"
+TOKEN = ""
 scrapesheet()
 combos = getlistofcombos()
 
