@@ -130,7 +130,7 @@ If you have any other websites you would like to see added to this list, please 
             s = s[:-2] + "."
             e.add_field(name='\u200b', value=s, inline=False)
         elif len(comboids) != 1:
-            s = str(len(comboids)) + ' more combos not listed here, please view combos '
+            s = str(len(comboids) - 1) + ' more combos not listed here, please view combos '
             for c in comboids:
                 s += str(c) + ", "
             s = s[:-2] + "."
