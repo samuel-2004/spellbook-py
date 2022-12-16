@@ -1,4 +1,5 @@
 import discord
+from discord import app_commands
 from defcombos import convertrawdecklist, shortencard, scrapesheet, getnumcombos, getlistofcombos, getcomboidsfromlist
 from createembed import createembed
 from getdecklistfromurl import decipherurl
@@ -9,6 +10,7 @@ from discord.ext import tasks
 from assist import convertstrtoint
 
 client = discord.Client(intents=discord.Intents.default())
+tree = app_commands.CommandTree(client)
 f = open("TOKEN.txt")
 TOKEN = f.read()
 f.close()
@@ -48,6 +50,21 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name=the_name))
     update_info.start()
 
+@tree.command(name="sbhelp", description="Returns the help message")
+async def first_command(interaction):
+    helpm = """
+**!sbhelp** Shows this help message.
+**!sbid <id>** Shows the combo with the given id.
+~~**!sbname <cardnames>** Shows a list of combos with the given cards included.~~
+~~**!sbcolor <wubrgc>** Shows a list of combos which match the color identity.~~
+~~**!sbresult <result>** Shows a list of combos which match the results.~~
+**!sbrandom** Displays a random combo.
+**!combocheck** or **!cc** Upload a text file with your decklist or a link to your deck and the bot will let you know what combos are in your deck!
+~~**!combo** This command is a way to search the site without ever leaving Discord! Handy!~~
+**!salt** Have you ever been salty? Well this bot has too, and it will certainly tell you so."""
+    embed = discord.Embed(title="**List of Available Commands:**", description=helpm, color=col)
+    await interaction.response.send(embed=embed)
+    
 @client.event
 async def on_message(msg):
     message = msg.content.lower()
@@ -58,20 +75,7 @@ async def on_message(msg):
         outstring = getnext(oldtagindex, False)
         await msg.channel.send(outstring)
         
-    if message.startswith('!sbhelp'): # send the help message
-        helpm = """
-**!sbhelp** Shows this help message.
-**!sbid <id>** Shows the combo with the given id.
-~~**!sbname <cardnames>** Shows a list of combos with the given cards included.~~
-~~**!sbcolor <wubrgc>** Shows a list of combos which match the color identity.~~
-~~**!sbresult <result>** Shows a list of combos which match the results.~~
-**!sbrandom** Displays a random combo.
-**!combocheck** or **!cc** Upload a text file with your decklist or a link to your deck and the bot will let you know what combos are in your deck!
-~~**!combo** This command is a way to search the site without ever leaving Discord! Handy!~~
-**!salt** Have you ever been salty? Well this bot has too, and it will certainly tell you so."""
-        embed_ = discord.Embed(title="**List of Available Commands:**", description=helpm, color=col)
-        await msg.channel.send(embed=embed_)
-    elif message.startswith("!cchelp"):
+    if message.startswith("!cchelp"):
         helpm = """
 Most deck builder websites have an *export* or a *download* feature. You can drag the file ending with *.txt* onto discord and type **!cc** and press enter, and the bot will give you a list of combos.
 If you don't want to download the deck, you can instead provide a link to the decklist.
