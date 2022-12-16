@@ -64,30 +64,29 @@ async def first_command(interaction):
 **!salt** Have you ever been salty? Well this bot has too, and it will certainly tell you so."""
     embed = discord.Embed(title="**List of Available Commands:**", description=helpm, color=col)
     await interaction.response.send(embed=embed)
-    
-@client.event
-async def on_message(msg):
-    message = msg.content.lower()
-    if msg.author.bot: # message was sent by any bot
-        return
 
-    if client.user.mentioned_in(msg):
-        outstring = getnext(oldtagindex, False)
-        await msg.channel.send(outstring)
-        
-    if message.startswith("!cchelp"):
-        helpm = """
+@tree.command(name="cchelp", description="Returns the help message for how the bot checks combos in a decklist")
+async def first_command(interaction):
+    helpm = """
 Most deck builder websites have an *export* or a *download* feature. You can drag the file ending with *.txt* onto discord and type **!cc** and press enter, and the bot will give you a list of combos.
 If you don't want to download the deck, you can instead provide a link to the decklist.
 For example you can type **!cc <decklist url>** and the bot will let you know what exciting combos are in the deck.
 Supported websites currently include Aetherhub, Archidekt, Deckbox, Deckstats, ManaStack, Moxfield, MtgGoldfish, MTGVault, Scryfall, and TappedOut.
 If you have any other websites you would like to see added to this list, please feel free to message <@579345356450693120>.
 """
-        embed_ = discord.Embed(title="**Combo Check Help:**", description=helpm, color=col)
-        await msg.channel.send(embed=embed_)
-    elif message.startswith("hello"):
-        print(message)
-    elif message.startswith("!saltadd"): # add a temporary message to the salt shortlist
+    embed = discord.Embed(title="**Combo Check Help:**", description=helpm, color=col)
+    await interaction.response.send(embed=embed)
+
+@client.event
+async def on_message(msg):
+    message = msg.content.lower()
+    if msg.author.bot: # message was sent by any bot
+        return
+    if client.user.mentioned_in(msg):
+        outstring = getnext(oldtagindex, False)
+        await msg.channel.send(outstring)
+        
+    if message.startswith("!saltadd"): # add a temporary message to the salt shortlist
         addsaltmsg(msg.content.replace("!saltadd","").strip())
     elif message.startswith("!tagadd"): # add a temporary message to the tag shortlist
         addtagmsg(msg.content.replace("!tagadd","").strip())
