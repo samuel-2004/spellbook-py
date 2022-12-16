@@ -8,7 +8,7 @@ from urllib.request import urlopen
 from discord.ext import tasks
 from assist import convertstrtoint
 
-client = discord.Client()
+client = discord.Client(intents=discord.Intents.default())
 f = open("TOKEN.txt")
 TOKEN = f.read()
 f.close()
@@ -17,13 +17,12 @@ combos = getlistofcombos()
 
 col = 0xfc0fc0
 
-
+global saltlist, taglist, oldsaltindex, oldtagindex
 taglist = gettaglist()
 oldtagindex = len(taglist)
 saltlist = getsaltlist()
 oldsaltindex = len(saltlist)
 def getnext(old, issalt):
-    global saltlist, taglist, oldsaltindex, oldtagindex
     old += 1
     if issalt:
         if old >= len(saltlist):
