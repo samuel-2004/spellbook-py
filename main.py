@@ -52,7 +52,7 @@ def getnext(old, issalt):
 @client.event
 async def on_ready():
     print("Syncing...")
-    await tree.sync(guild=discord.Object())
+    await tree.sync()
     the_name = str(getnumcombos()) + ' combos at once'
     print('We have logged in as {0.user}'.format(client))
     await client.change_presence(activity=discord.Game(name=the_name))
