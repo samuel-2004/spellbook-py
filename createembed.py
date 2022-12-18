@@ -201,5 +201,5 @@ def createembed(idnum, combos):
     if pre[1] or ste[1] or res[1]:
         embed.add_field(name='\u200b', value='There was too much information to display, please go [**here**](https://commanderspellbook.com/?id='+idnum+') for more information.', inline=False)
 
-    embed.set_footer(text="Use !sbhelp to get a list of available commands.")
+    embed.set_footer(text="Use /sbhelp to get a list of available commands.")
     return embed
