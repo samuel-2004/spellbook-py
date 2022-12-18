@@ -52,13 +52,13 @@ def getnext(old, issalt):
 @client.event
 async def on_ready():
     print("Syncing...")
-    await tree.sync(guild=discord.Object(id=632440454847135745))
+    await tree.sync(guild=discord.Object())
     the_name = str(getnumcombos()) + ' combos at once'
     print('We have logged in as {0.user}'.format(client))
     await client.change_presence(activity=discord.Game(name=the_name))
     update_info.start()
 
-@tree.command(name="sbhelp", description="Returns the help message", guild=discord.Object(id=632440454847135745))
+@tree.command(name="sbhelp", description="Returns the help message")
 async def sbhelp(interaction):
     helpm = """
 **!sbhelp** Shows this help message.
@@ -73,7 +73,7 @@ async def sbhelp(interaction):
     embed = discord.Embed(title="**List of Available Commands:**", description=helpm, color=col)
     await interaction.response.send_message(embed=embed)
 
-@tree.command(name="cchelp", description="Returns the help message for checking a decklist", guild=discord.Object(id=632440454847135745))
+@tree.command(name="cchelp", description="Returns the help message for checking a decklist")
 async def cchelp(interaction):
     helpm = """
 Most deck builder websites have an *export* or a *download* feature. You can drag the file ending with *.txt* onto discord and type **!cc** and press enter, and the bot will give you a list of combos.
@@ -85,7 +85,7 @@ If you have any other websites you would like to see added to this list, please 
     embed = discord.Embed(title="**Combo Check Help:**", description=helpm, color=col)
     await interaction.response.send_message(embed=embed)
 
-@tree.command(name="combocheck", description="Returns the help message for checking a decklist", guild=discord.Object(id=632440454847135745))
+@tree.command(name="combocheck", description="Returns the help message for checking a decklist")
 async def combocheck(interaction, decklist: discord.Attachment=None, decklist_url: str=None):
     #fixing variable names
     attachment = decklist
@@ -128,13 +128,13 @@ async def combocheck(interaction, decklist: discord.Attachment=None, decklist_ur
         e.add_field(name='\u200b', value=s, inline=False)
     await interaction.response.send_message(embed=e)
 
-@tree.command(name="sbrandom", description="Displays a random combo", guild=discord.Object(id=632440454847135745))
+@tree.command(name="sbrandom", description="Displays a random combo")
 async def sbrandom(interaction):
     m = randint(1, getnumcombos())
     embed=createembed(m,combos)
     await interaction.response.send_message(embed=embed)
     
-@tree.command(name="sbid", description="Displays the combo with the given id", guild=discord.Object(id=632440454847135745))
+@tree.command(name="sbid", description="Displays the combo with the given id")
 async def sbid(interaction, identity: int):
     m = identity
     try:
@@ -143,7 +143,7 @@ async def sbid(interaction, identity: int):
     except:
         interaction.response.send_message("Invalid identity!")
 
-@tree.command(name="salt", description="Have you ever been salty? Well this bot has too, and it will certainly tell you so.", guild=discord.Object(id=632440454847135745))
+@tree.command(name="salt", description="Have you ever been salty? Well this bot has too, and it will certainly tell you so.")
 async def salt(interaction):
     outstring = getnext(oldsaltindex, True)
     await interaction.response.send_message(outstring)
